@@ -6,12 +6,14 @@ class PostEntity extends Equatable {
   final String body;
   final UserEntity author;
   final String imageUrl;
+  final int likes;
 
   const PostEntity({
     required this.id,
     required this.body,
     required this.author,
     required this.imageUrl,
+    required this.likes,
   });
 
   @override
@@ -20,5 +22,6 @@ class PostEntity extends Equatable {
         body,
         author,
         imageUrl,
+        likes,
       ];
 }

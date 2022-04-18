@@ -9,11 +9,13 @@ class PostModel extends PostEntity {
     required String body,
     required UserEntity author,
     required String imageUrl,
+    required int likes,
   }) : super(
           id: id,
           body: body,
           author: author,
           imageUrl: imageUrl,
+          likes: likes,
         );
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class PostModel extends PostEntity {
       body: json['body'],
       author: UserModel.fromJson(json['author']),
       imageUrl: json['imageUrl'],
+      likes: json['likes'],
     );
   }
 
@@ -31,6 +34,7 @@ class PostModel extends PostEntity {
       body: faker.lorem.sentence(),
       author: UserModel.fake(),
       imageUrl: faker.image.image(random: true),
+      likes: faker.randomGenerator.integer(999),
     );
   }
 
