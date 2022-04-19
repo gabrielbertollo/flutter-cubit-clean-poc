@@ -1,13 +1,13 @@
 import 'package:faker/faker.dart';
-import 'package:flutter_clean_cubit/domain/entities/post_entity.dart';
-import 'package:flutter_clean_cubit/domain/entities/user_entity.dart';
+import 'package:flutter_clean_cubit/domain/entities/post.dart';
+import 'package:flutter_clean_cubit/domain/entities/user.dart';
 import 'package:flutter_clean_cubit/infra/models/user_model.dart';
 
-class PostModel extends PostEntity {
+class PostModel extends Post {
   const PostModel({
     required int id,
     required String body,
-    required UserEntity author,
+    required User author,
     required String imageUrl,
     required int likes,
   }) : super(

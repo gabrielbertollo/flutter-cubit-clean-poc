@@ -1,5 +1,5 @@
-import 'package:flutter_clean_cubit/domain/entities/post_entity.dart';
+import 'package:flutter_clean_cubit/domain/entities/post.dart';
 
 abstract class IPostsRepository {
-  Future<List<PostEntity>> getPosts();
+  Future<List<Post>> getPosts();
 }

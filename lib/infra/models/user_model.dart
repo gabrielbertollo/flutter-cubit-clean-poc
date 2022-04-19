@@ -1,7 +1,7 @@
 import 'package:faker/faker.dart';
-import 'package:flutter_clean_cubit/domain/entities/user_entity.dart';
+import 'package:flutter_clean_cubit/domain/entities/user.dart';
 
-class UserModel extends UserEntity {
+class UserModel extends User {
   const UserModel({
     required int id,
     required String name,

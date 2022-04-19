@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../domain/entities/post_entity.dart';
+import '../../../../domain/entities/post.dart';
 import '../../../../external/posts_external_datasource_mock.dart';
 
 part 'posts_state.dart';

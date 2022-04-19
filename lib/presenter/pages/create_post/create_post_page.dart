@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_cubit/domain/entities/post_entity.dart';
+import 'package:flutter_clean_cubit/domain/entities/post.dart';
 import 'package:flutter_clean_cubit/infra/models/post_model.dart';
 import 'package:flutter_clean_cubit/infra/models/user_model.dart';
 import 'package:flutter_clean_cubit/presenter/pages/create_post/cubit/create_post_cubit.dart';

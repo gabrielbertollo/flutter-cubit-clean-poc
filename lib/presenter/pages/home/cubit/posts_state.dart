@@ -14,7 +14,7 @@ class PostsLoading extends PostsState {
 }
 
 class PostsLoaded extends PostsState {
-  final List<PostEntity> posts;
+  final List<Post> posts;
 
   const PostsLoaded(this.posts);
 }

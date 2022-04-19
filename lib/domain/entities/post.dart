@@ -1,14 +1,14 @@
-import 'user_entity.dart';
+import 'user.dart';
 import 'package:equatable/equatable.dart';
 
-class PostEntity extends Equatable {
+class Post extends Equatable {
   final int id;
   final String body;
-  final UserEntity author;
+  final User author;
   final String imageUrl;
   final int likes;
 
-  const PostEntity({
+  const Post({
     required this.id,
     required this.body,
     required this.author,
