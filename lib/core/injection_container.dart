@@ -9,6 +9,14 @@ import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
+@Deprecated('''
+  This was a temporary implementation of dependency injection to show the
+  manual method of class registration.
+  We are now using the Injectable package to register the dependencies through
+  the generated code.
+  See the generated code in the 
+  lib/core/dependency_injection/dependency_injection.config.dart file.
+  ''')
 void init() {
   // Register blocs
   sl.registerFactory(

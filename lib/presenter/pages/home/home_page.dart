@@ -1,14 +1,24 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/dependency_injection/dependency_injection.dart';
 import 'cubit/posts_cubit.dart';
 import 'widgets/post_widget.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget implements AutoRouteWrapper {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<PostsCubit>(),
+      child: this,
+    );
+  }
 }
 
 class _HomePageState extends State<HomePage> {
@@ -67,7 +77,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed('/create_post');
+          context.router.pushNamed('create_post');
         },
         child: const Icon(Icons.add),
       ),

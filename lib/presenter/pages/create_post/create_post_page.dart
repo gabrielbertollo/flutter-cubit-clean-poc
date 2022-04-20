@@ -1,12 +1,22 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_cubit/domain/entities/post.dart';
-import 'package:flutter_clean_cubit/infra/models/post_model.dart';
-import 'package:flutter_clean_cubit/infra/models/user_model.dart';
-import 'package:flutter_clean_cubit/presenter/pages/create_post/cubit/create_post_cubit.dart';
 
-class CreatePostPage extends StatelessWidget {
+import '../../../core/dependency_injection/dependency_injection.dart';
+import '../../../infra/models/post_model.dart';
+import '../../../infra/models/user_model.dart';
+import 'cubit/create_post_cubit.dart';
+
+class CreatePostPage extends StatelessWidget implements AutoRouteWrapper {
   const CreatePostPage({Key? key}) : super(key: key);
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<CreatePostCubit>(),
+      child: this,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

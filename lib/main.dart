@@ -1,37 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_cubit/core/dependency_injection/dependency_injection.dart';
 
-import 'core/injection_container.dart';
-import 'presenter/pages/create_post/create_post_page.dart';
-import 'presenter/pages/create_post/cubit/create_post_cubit.dart';
-import 'presenter/pages/home/cubit/posts_cubit.dart';
-import 'presenter/pages/home/home_page.dart';
-import 'core/injection_container.dart' as di;
+import 'core/routes/router.gr.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  di.init();
-  runApp(const MyApp());
+  configureDependencies();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final _appRouter = AppRouter();
+
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     const title = 'POC Flutter Clean Cubit';
-    return MaterialApp(
+    return MaterialApp.router(
       title: title,
-      home: BlocProvider(
-        create: (context) => sl<PostsCubit>(),
-        child: const HomePage(),
-      ),
-      routes: {
-        '/create_post': (context) => BlocProvider(
-              create: (context) => sl<CreatePostCubit>(),
-              child: const CreatePostPage(),
-            ),
-      },
+      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerDelegate: _appRouter.delegate(),
+      routeInformationProvider: _appRouter.routeInfoProvider(),
     );
   }
 }

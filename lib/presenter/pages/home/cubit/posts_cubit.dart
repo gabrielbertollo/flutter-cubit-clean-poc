@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../domain/entities/post.dart';
@@ -6,6 +7,7 @@ import '../../../../domain/usecases/get_posts_usecase.dart';
 
 part 'posts_state.dart';
 
+@injectable
 class PostsCubit extends Cubit<PostsState> {
   final GetPostsUsecase getPostsUsecase;
 
