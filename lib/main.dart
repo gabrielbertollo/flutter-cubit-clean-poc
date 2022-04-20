@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_cubit/external/posts_external_datasource_mock.dart';
-import 'package:flutter_clean_cubit/presenter/pages/create_post/create_post_page.dart';
-import 'package:flutter_clean_cubit/presenter/pages/create_post/cubit/create_post_cubit.dart';
-import 'package:flutter_clean_cubit/presenter/pages/home/cubit/posts_cubit.dart';
 
+import 'core/injection_container.dart';
+import 'presenter/pages/create_post/create_post_page.dart';
+import 'presenter/pages/create_post/cubit/create_post_cubit.dart';
+import 'presenter/pages/home/cubit/posts_cubit.dart';
 import 'presenter/pages/home/home_page.dart';
+import 'core/injection_container.dart' as di;
 
-void main() => runApp(const MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  di.init();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -18,14 +23,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: title,
       home: BlocProvider(
-        create: (context) => PostsCubit(
-          datasourceMock: PostsExternalDatasourceMock(),
-        ),
+        create: (context) => sl<PostsCubit>(),
         child: const HomePage(),
       ),
       routes: {
         '/create_post': (context) => BlocProvider(
-              create: (context) => CreatePostCubit(),
+              create: (context) => sl<CreatePostCubit>(),
               child: const CreatePostPage(),
             ),
       },

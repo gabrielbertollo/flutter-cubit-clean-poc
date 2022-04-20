@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_cubit/presenter/pages/create_post/create_post_page.dart';
 
 import 'cubit/posts_cubit.dart';
 import 'widgets/post_widget.dart';
