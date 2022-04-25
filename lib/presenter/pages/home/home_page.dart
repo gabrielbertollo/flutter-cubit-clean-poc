@@ -55,19 +55,20 @@ class _HomePageState extends State<HomePage> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is PostsError) {
-              return Center(
-                child: Text(state.message),
-              );
             } else if (state is PostsLoaded) {
-              return ListView.builder(
-                itemCount: state.posts.length,
-                itemBuilder: (context, index) {
-                  final post = state.posts[index];
-                  return PostWidget(
-                    post: post,
-                  );
-                },
+              return state.posts.fold(
+                (failure) => Center(
+                  child: Text(failure.toString()),
+                ),
+                (posts) => ListView.builder(
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) {
+                    final post = posts[index];
+                    return PostWidget(
+                      post: post,
+                    );
+                  },
+                ),
               );
             } else {
               return Container();
