@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter_clean_cubit/core/failure_exception.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
+
+import '../../../../core/task_extension.dart';
 
 import '../../../../domain/entities/post.dart';
 import '../../../../domain/usecases/get_posts_usecase.dart';
@@ -11,16 +14,27 @@ part 'posts_state.dart';
 class PostsCubit extends Cubit<PostsState> {
   final GetPostsUsecase getPostsUsecase;
 
-  PostsCubit({required this.getPostsUsecase}) : super(const PostsInitial());
+  Either<Failure, List<Post>>? posts;
+
+  PostsCubit({required this.getPostsUsecase}) : super(PostsInitial());
 
   Future<void> getPosts() async {
-    emit(const PostsLoading());
+    emit(PostsLoading());
 
-    try {
-      final posts = await getPostsUsecase();
-      emit(PostsLoaded(posts));
-    } catch (e) {
-      emit(PostsError(e.toString()));
-    }
+    posts = (await Task(() => getPostsUsecase())
+        .attempt()
+        .mapLeftToFailure()
+        .run()) as Either<Failure, List<Post>>?;
+
+    emit(PostsLoaded(posts!));
+  }
+
+  addPostLocally(Post post) async {
+    emit(PostsLoading());
+    // emulate network delay
+    await Future.delayed(const Duration(seconds: 1));
+
+    posts = posts?.map((posts) => [post, ...posts]);
+    emit(PostsLoaded(posts!));
   }
 }

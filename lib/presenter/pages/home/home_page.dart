@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_cubit/domain/entities/post.dart';
 
 import '../../../core/dependency_injection/dependency_injection.dart';
 import 'cubit/posts_cubit.dart';
@@ -55,19 +56,20 @@ class _HomePageState extends State<HomePage> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is PostsError) {
-              return Center(
-                child: Text(state.message),
-              );
             } else if (state is PostsLoaded) {
-              return ListView.builder(
-                itemCount: state.posts.length,
-                itemBuilder: (context, index) {
-                  final post = state.posts[index];
-                  return PostWidget(
-                    post: post,
-                  );
-                },
+              return state.posts.fold(
+                (failure) => Center(
+                  child: Text(failure.toString()),
+                ),
+                (posts) => ListView.builder(
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) {
+                    final post = posts[index];
+                    return PostWidget(
+                      post: post,
+                    );
+                  },
+                ),
               );
             } else {
               return Container();
@@ -76,9 +78,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.router.pushNamed('create_post');
-        },
+        onPressed: () async =>
+            await context.router.pushNamed('create_post').then((value) {
+          if (value is Post) {
+            context.read<PostsCubit>().addPostLocally(value);
+          }
+        }),
         child: const Icon(Icons.add),
       ),
     );
