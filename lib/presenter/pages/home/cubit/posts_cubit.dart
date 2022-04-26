@@ -28,4 +28,13 @@ class PostsCubit extends Cubit<PostsState> {
 
     emit(PostsLoaded(posts!));
   }
+
+  addPostLocally(Post post) async {
+    emit(PostsLoading());
+    // emulate network delay
+    await Future.delayed(const Duration(seconds: 1));
+
+    posts = posts?.map((posts) => [post, ...posts]);
+    emit(PostsLoaded(posts!));
+  }
 }

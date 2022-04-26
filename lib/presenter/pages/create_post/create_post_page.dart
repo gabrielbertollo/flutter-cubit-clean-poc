@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_cubit/domain/entities/post.dart';
 
 import '../../../core/dependency_injection/dependency_injection.dart';
 import '../../../infra/models/post_model.dart';
@@ -39,7 +40,7 @@ class CreatePostPage extends StatelessWidget implements AutoRouteWrapper {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                createPostCubit.createPost(
+                Post createdPost = createPostCubit.createPost(
                   PostModel(
                     author: UserModel.fake(),
                     body: createPostCubit.createPostTextEditingController.text,
@@ -48,7 +49,7 @@ class CreatePostPage extends StatelessWidget implements AutoRouteWrapper {
                     likes: 0,
                   ),
                 );
-                Navigator.of(context).pop();
+                context.router.pop(createdPost);
               },
               child: const Text('Publish'),
             ),
