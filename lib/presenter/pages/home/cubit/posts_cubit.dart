@@ -21,10 +21,14 @@ class PostsCubit extends Cubit<PostsState> {
   Future<void> getPosts() async {
     emit(PostsLoading());
 
-    posts = (await Task(() => getPostsUsecase())
-        .attempt()
-        .mapLeftToFailure()
-        .run()) as Either<Failure, List<Post>>?;
+    try {
+      posts = (await Task(() => getPostsUsecase())
+          .attempt()
+          .mapLeftToFailure()
+          .run()) as Either<Failure, List<Post>>?;
+    } catch (e) {
+      emit(PostsError(e.toString()));
+    }
 
     emit(PostsLoaded(posts!));
   }

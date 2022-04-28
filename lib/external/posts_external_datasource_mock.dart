@@ -11,13 +11,13 @@ class PostsExternalDatasourceMock implements PostsExternalDatasource {
   @override
   Future<List<Post>> getPosts() async {
     final bool throwError = faker.randomGenerator.boolean();
-    if (throwError) {
-      throw const HttpException('404');
-    }
+    // if (throwError) {
+    throw const HttpException('404');
+    // }
 
-    return Future.delayed(
-      const Duration(seconds: 2),
-      () => PostModel.fakeList(15),
-    );
+    // return Future.delayed(
+    //   const Duration(seconds: 2),
+    //   () => PostModel.fakeList(15),
+    // );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_cubit/domain/entities/post.dart';
 
 import '../../../core/dependency_injection/dependency_injection.dart';
+import '../../../domain/entities/post.dart';
 import 'cubit/posts_cubit.dart';
 import 'widgets/post_widget.dart';
 
@@ -71,9 +71,10 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               );
-            } else {
-              return Container();
             }
+            return const Center(
+              child: Text('An error occurred'),
+            );
           },
         ),
       ),
