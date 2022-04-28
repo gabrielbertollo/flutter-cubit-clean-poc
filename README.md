@@ -10,11 +10,13 @@ Here you can find a concrete implementation of the Clean Architecture using Cubi
 
 ## Used Packages
 
+- auto_route
 - bloc
-- flutter_bloc
 - equatable
 - faker
+- flutter_bloc
 - get_it
+- injectable
 
 ## Getting Started
 
